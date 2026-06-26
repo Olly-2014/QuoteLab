@@ -737,11 +737,11 @@ function togPw(id,btn){var i=document.getElementById(id);i.type=i.type==='passwo
 
 // ════ AUTH UI ════
 function showAuth(page){
-  ['login','register','restore'].forEach(function(p){
+  ['login','register'].forEach(function(p){
     var el=document.getElementById('page-'+p);if(el)el.classList.toggle('active',p===page);
     var tb=document.getElementById('tab-'+p);if(tb)tb.classList.toggle('active',p===page);
   });
-  ['login-err','reg-err','rst-err','cpw-err'].forEach(function(id){var e=document.getElementById(id);if(e){e.textContent='';e.classList.remove('show');}});
+  ['login-err','reg-err','cpw-err'].forEach(function(id){var e=document.getElementById(id);if(e){e.textContent='';e.classList.remove('show');}});
 }
 function showErr(id,msg){var e=document.getElementById(id);if(e){e.textContent=msg;e.classList.add('show');}}
 function clearErr(id){var e=document.getElementById(id);if(e){e.textContent='';e.classList.remove('show');}}
@@ -768,7 +768,7 @@ function doLogin(){
   var pw=document.getElementById('login-pw').value;
   if(!email||!pw)return showErr('login-err','Inserisci email e password.');
   var u=getUsers()[email];
-  if(!u)return showErr('login-err','Email non trovata. Usa il codice backup.');
+  if(!u)return showErr('login-err','Email non trovata. Registrati o controlla l\'email.');
   if(u.pwHash!==hp(pw))return showErr('login-err','Password non corretta.');
   setSession(email);bootApp();toast('👋','Bentornato '+u.nome+'!','');
 }
