@@ -386,7 +386,7 @@ textarea.fi{resize:none}
 <div class="toast-wrap" id="toast"><span class="t-ic" id="t-ic"></span><div><div class="t-t" id="t-t"></div><div class="t-b" id="t-b"></div></div></div>
 
 <!-- ════ AUTH ════ -->
-<div id="auth-screen" style="display:none">
+<div id="auth-screen">
   <div class="auth-hero">
     <div class="hero-logo">Quote<em>Lab</em></div>
     <div class="hero-sub">Preventivi serramenti. Veloci e professionali.</div>
@@ -2241,9 +2241,16 @@ document.getElementById('reg-pw2').addEventListener('keydown',function(e){if(e.k
 
 ;(async function init(){
   loadDarkPref();
+  // Show auth screen by default while loading
+  var authEl=document.getElementById('auth-screen');
+  if(authEl)authEl.style.display='';
+  showAuth('login');
+  // Try to restore session
   var restored=await tryRestore();
-  if(restored&&currentUser())bootApp();
-  else{document.getElementById('auth-screen').style.display='';showAuth('login');}
+  if(restored&&currentUser()){
+    if(authEl)authEl.style.display='none';
+    bootApp();
+  }
 })();
 
 </script>
